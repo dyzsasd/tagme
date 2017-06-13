@@ -75,7 +75,7 @@
 		<get dest="${preproc_lib}/smtp-1.4.4.jar" src="http://search.maven.org/remotecontent?filepath=com/sun/mail/smtp/1.4.4/smtp-1.4.4.jar" />
 	</target>
 	
-	<target name="compile" depends="clean">
+	<target name="compile" depends="clean,get-deps">
 		<mkdir dir="${bin}"/>
 		<javac
 			destdir="${bin}"
@@ -145,6 +145,8 @@
 		<tstamp/>
 		<delete quiet="true" file="${basedir}/tagme.jar" />
 		<jar destfile="${basedir}/tagme.jar" basedir="${bin}">
+                    <zipgroupfileset dir="ext_lib/" includes="*.jar"/>
+                    <zipgroupfileset dir="lib/" includes="*.jar"/>
 		    <manifest>
 		      	<attribute name="Built-By" value="${user.name}"/>
 		    	<attribute name="Date" value="${DSTAMP}-${TSTAMP}"/>
